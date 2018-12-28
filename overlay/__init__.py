@@ -5,5 +5,7 @@ __version__ = '1.0.0'
 __license__ = 'MIT'
 
 __all__ = [
-
+	'Window',
 ]
+
+from .window import *
