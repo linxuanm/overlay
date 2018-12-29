@@ -21,25 +21,24 @@ class Window:
 		root: tk.Toplevel, the root of the overlay window.
 		size: tuple, the dimension (width, height) of the overlay window.
 		transparent: bool, whether to set the overlay background transparent.
-		transparency: float [0, 1], the transparency of the overlay.
+		alpha: float [0, 1], the alpha (transparency) of the overlay.
 		draggable: bool, whether the window can be dragged
 		'''
 		self._root = root
-
-		'''Create the master (tk.Tk) if not exists.'''
-		global master
-
-		'''Basic configurations.'''
-		self.size = kwargs.get('size', (100, 100))
 
 		'''Hide the title bar.'''
 		self._root.overrideredirect(1)
 		self._root.update_idletasks()
 		self._root.lift()
 
+		'''Basic configurations.'''
+		self.size = kwargs.get('size', (100, 100))
+
 		'''Make the background transparent.'''
-		if kwargs.get('transparent', False):
-			self._root.config(bg='systemTransparent')
+		self.transparent = kwargs.get('transparent', False)
+
+		'''Change the transparency of the overlay.'''
+		self.alpha = kwargs.get('alpha', 1)
 
 		'''Make the window draggable.'''
 		self.draggable = kwargs.get('draggable', True)
@@ -47,9 +46,6 @@ class Window:
 		self._root.bind('<ButtonRelease-1>', self._drag_stop)
 		self._root.bind('<B1-Motion>', self._move)
 		self._drag_stop(None)
-
-		'''Change the transparency of the overlay.'''
-		self._root.wm_attributes('-alpha', kwargs.get('transparency', 1))
 
 		'''Remove the overlay's shadow.'''
 		self._root.wm_attributes('-transparent', True)
@@ -101,6 +97,23 @@ class Window:
 	def size(self, newSize):
 		self._size = newSize
 		self._root.geometry('%sx%s'%self._size)
+
+	@property
+	def transparent(self):
+		return self._root['bg'] == 'systemTransparent'
+
+	@transparent.setter
+	def transparent(self, newTransparent):
+		bg = 'systemTransparent' if newTransparent else 'systemWindowBody'
+		self._root.config(bg=bg)
+
+	@property
+	def alpha(self):
+		return self._root.wm_attributes('-alpha')
+
+	@alpha.setter
+	def alpha(self, newAlpha):
+		self._root.wm_attributes('-alpha', newAlpha)
 
 	@staticmethod
 	def launch():
