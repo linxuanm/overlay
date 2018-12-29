@@ -81,11 +81,11 @@ class Window:
 	def _move(self, event):
 		'''The handler for moving the overlay.'''
 		if self.draggable:
-			mx = self._root.winfo_pointerx() - self._root.winfo_rootx()
-			my = self._root.winfo_pointery() - self._root.winfo_rooty()
-			x = self._root.winfo_x() + mx - self.x
-			y = self._root.winfo_y() + my - self.y
-			self._root.geometry('+%d+%d'%(x,y))
+			mouse_x = self._root.winfo_pointerx() - self._root.winfo_rootx()
+			mouse_y = self._root.winfo_pointery() - self._root.winfo_rooty()
+			new_x = self._root.winfo_x() + mouse_x - self.x
+			new_y = self._root.winfo_y() + mouse_y - self.y
+			self._root.geometry('+%d+%d'%(new_x, new_y))
 
 	@property
 	def size(self):
