@@ -8,4 +8,4 @@ __all__ = [
 	'Window',
 ]
 
-from .window import *
+from overlay.window import *

@@ -1,4 +1,4 @@
-''' Installer for the package. '''
+'''Installer for the package.'''
 
 import pathlib
 from setuptools import find_packages, setup
