@@ -15,7 +15,7 @@ master.withdraw()
 
 class Window:
 
-	def __init__(self, root: tk.Toplevel = None, **kwargs):
+	def __init__(self, root: tk.Toplevel, **kwargs):
 		'''Initiate an overlay window.
 
 		root: tk.Toplevel, the root of the overlay window.
