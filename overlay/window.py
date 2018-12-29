@@ -22,6 +22,7 @@ class Window:
 		size: tuple, the dimension (width, height) of the overlay window.
 		transparent: bool, whether to set the overlay background transparent.
 		transparency: float [0, 1], the transparency of the overlay.
+		draggable: bool, whether the window can be dragged
 		'''
 		self._root = root
 
@@ -40,6 +41,16 @@ class Window:
 		if kwargs.get('transparent', False):
 			self._root.config(bg='systemTransparent')
 
+		'''Make the window draggable.'''
+		self.draggable = kwargs.get('draggable', True)
+		self._root.bind('<ButtonPress-1>', self._dragStart)
+		self._root.bind('<ButtonRelease-1>', self._dragStop)
+		self._root.bind('<B1-Motion>', self._move)
+		self._dragStop(None)
+
+		'''Change the transparency of the overlay.'''
+		self._root.wm_attributes('-alpha', kwargs.get('transparency', 1))
+
 		'''Remove the overlay's shadow.'''
 		self._root.wm_attributes('-transparent', True)
 
@@ -56,6 +67,25 @@ class Window:
 	def destroy(self):
 		'''Destroy this overlay.'''
 		self._root.destroy()
+
+	def _dragStart(self, event):
+		'''The start of moving this overlay.'''
+		self.x = event.x
+		self.y = event.y
+
+	def _dragStop(self, event):
+		'''The start of moving the overlay.'''
+		self.x = None
+		self.y = None
+
+	def _move(self, event):
+		'''The handler for moving the overlay.'''
+		if self.draggable:
+			mx = self._root.winfo_pointerx() - self._root.winfo_rootx()
+			my = self._root.winfo_pointery() - self._root.winfo_rooty()
+			x = self._root.winfo_x() + mx - self.x
+			y = self._root.winfo_y() + my - self.y
+			self._root.geometry('+%d+%d'%(x,y))
 
 	@property
 	def size(self):
