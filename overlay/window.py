@@ -43,10 +43,10 @@ class Window:
 
 		'''Make the window draggable.'''
 		self.draggable = kwargs.get('draggable', True)
-		self._root.bind('<ButtonPress-1>', self._dragStart)
-		self._root.bind('<ButtonRelease-1>', self._dragStop)
+		self._root.bind('<ButtonPress-1>', self._drag_start)
+		self._root.bind('<ButtonRelease-1>', self._drag_stop)
 		self._root.bind('<B1-Motion>', self._move)
-		self._dragStop(None)
+		self._drag_stop(None)
 
 		'''Change the transparency of the overlay.'''
 		self._root.wm_attributes('-alpha', kwargs.get('transparency', 1))
@@ -64,16 +64,22 @@ class Window:
 		'''Hide this overlay.'''
 		self._root.withdraw()
 
+	def show(self):
+		'''Show this overlay.'''
+		self._root.wm_deiconify()
+		self._root.lift()
+		self._root.wm_attributes('-topmost', True)
+
 	def destroy(self):
 		'''Destroy this overlay.'''
 		self._root.destroy()
 
-	def _dragStart(self, event):
+	def _drag_start(self, event):
 		'''The start of moving this overlay.'''
 		self.x = event.x
 		self.y = event.y
 
-	def _dragStop(self, event):
+	def _drag_stop(self, event):
 		'''The start of moving the overlay.'''
 		self.x = None
 		self.y = None
@@ -98,4 +104,17 @@ class Window:
 
 	@staticmethod
 	def launch():
+		'''Enter the mainloop for all overlays.'''
 		master.mainloop()
+
+	@staticmethod
+	def hide_all():
+		'''Hide all overlays.'''
+		for overlay in overlays:
+			overlay.hide()
+
+	@staticmethod
+	def show_all():
+		'''Show all overlays.'''
+		for overlay in overlays:
+			overlay.show()
