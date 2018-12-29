@@ -117,7 +117,7 @@ class Window:
 
 	@staticmethod
 	def launch():
-		'''Enter the mainloop for all overlays.'''
+		'''Enter the mainloop for the collection of all overlays.'''
 		master.mainloop()
 
 	@staticmethod
@@ -131,3 +131,11 @@ class Window:
 		'''Show all overlays.'''
 		for overlay in overlays:
 			overlay.show()
+
+	@staticmethod
+	def destroy_all():
+		'''Destroy all overlays and end the mainloop.'''
+		for overlay in overlays:
+			overlay.destroy()
+
+		master.destroy()
