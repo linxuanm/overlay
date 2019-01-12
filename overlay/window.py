@@ -26,7 +26,7 @@ class Window:
 		position: tuple, the position of the overlay (on screen).
 		transparent: bool, whether to set the overlay background transparent.
 		alpha: float [0, 1], the alpha (transparency) of the overlay.
-		draggable: bool, whether the window can be dragged
+		draggable: bool, whether the window can be dragged.
 		'''
 		self._root = tk.Toplevel();
 

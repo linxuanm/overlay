@@ -15,6 +15,10 @@ class WindowBase(Window):
 		if focus:
 			self.focus()
 
+	def scroll_resize(self, event):
+		'''Whether resizable with the mouse wheel.'''
+		self.size = tuple(map(lambda x: x + event.delta, self.size))
+
 class TextWindow(WindowBase):
 	'''A basic text-based window.'''
 
