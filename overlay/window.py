@@ -36,7 +36,7 @@ class Window:
 		self._root.lift()
 
 		'''Basic configurations.'''
-		self.size = kwargs.get('size', (100, 100))
+		self.size = kwargs.get('size', (500, 250))
 		self.position = kwargs.get('position', (0, 0))
 
 		'''Make the background transparent.'''
