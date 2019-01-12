@@ -4,6 +4,7 @@ __author__ = 'David Ma'
 
 __all__ = [
 	'Window',
+	'overlays',
 ]
 
 import tkinter as tk
@@ -60,6 +61,32 @@ class Window:
 		'''Add self to overlay collections.'''
 		overlays.append(self)
 
+	def focus(self):
+		'''Set focus to this overlay.'''
+		self._root.focus_force()
+
+	def center(self, offset: tuple = 'auto', pos: tuple = None):
+		'''Move this overlay to the center of the screen.
+
+		offset: tuple, extra offset for the destined position.
+		pos: tuple, the location to center the overlay to.
+
+		By default the overlay is moved a little above the real center to a
+		more eye-catching location.
+		'''
+		if offset == 'auto':
+			offset = 0, -self._root.winfo_screenheight() // 7.5
+
+		if not pos:
+			center_x = self._root.winfo_screenwidth() / 2
+			center_y = self._root.winfo_screenheight() / 2
+		else:
+			center_x, center_y = pos
+		offset_x, offset_y = tuple(map(lambda x: x / 2, self.size))
+		new_x = center_x - offset_x + offset[0]
+		new_y = center_y - offset_y + offset[1]
+		self.position = new_x, new_y
+
 	def hide(self):
 		'''Hide this overlay.'''
 		self._root.withdraw()
@@ -107,12 +134,12 @@ class Window:
 
 	@position.setter
 	def position(self, newPos):
-		self._position = newPos
+		self._position = tuple(map(lambda x: int(x), newPos))
 		self._root.geometry('+%s+%s'%self._position)
 
 	@size.setter
 	def size(self, newSize):
-		self._size = newSize
+		self._size = tuple(map(lambda x: int(x), newSize))
 		self._root.geometry('%sx%s'%self._size)
 
 	@property

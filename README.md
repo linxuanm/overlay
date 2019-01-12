@@ -61,11 +61,15 @@ from time import sleep
 from overlay import Window
 
 def other_stuff(text):
+	'''A simple demonstration. The usage of sleep is to emphasize the effects of each action.'''
 	print(text)
 	sleep(2)
 	win_0.hide() # Hides the overlay.
 	sleep(1)
 	win_0.show() # Shows the overlay.
+	sleep(1)
+	win_0.focus() # Sets focus to overlay.
+	win_1.center() # Moves the overlay to the center of the screen.
 	sleep(1)
 	Window.hide_all() # Hides all overlays.
 	sleep(1)
