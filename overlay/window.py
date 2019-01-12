@@ -52,11 +52,11 @@ class Window:
 		self._root.bind('<B1-Motion>', self._move)
 		self._drag_stop(None)
 
-		'''Remove the overlay's shadow.'''
-		self._root.wm_attributes('-transparent', True)
-
 		'''Make the overlay float on top of everything.'''
 		self._root.wm_attributes('-topmost', True)
+
+		'''Remove the overlay's shadow.'''
+		self._root.wm_attributes('-transparent', True)
 
 		'''Add self to overlay collections.'''
 		overlays.append(self)

@@ -1,5 +1,10 @@
 '''An abstract template.'''
 
+__all__ = [
+	'TextWindow',
+]
+
+import abc
 from overlay import Window
 
 class WindowBase(Window):
@@ -9,9 +14,8 @@ class WindowBase(Window):
 		'''Handler for basic binding commands.
 
 		focus: boolean, whether to focus the window on startup.
-
 		'''
-		super().__init__()
+		super().__init__(**kwargs)
 		if focus:
 			self.focus()
 
@@ -29,6 +33,11 @@ class TextWindow(WindowBase):
 		'''
 		super().__init__(**kwargs)
 		self._content = content
+
+	@abc.abstractmethod
+	def _update_text(self, text):
+		'''Update the text displayed in the overlay.'''
+		return
 
 	@property
 	def content(self):
