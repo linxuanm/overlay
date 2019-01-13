@@ -34,8 +34,8 @@ class Asset:
 		if target == None:
 			raise FileNotFoundError(f'The asset \'{name}\' does not exist.')
 
-		img = Image.open(target)
+		img = Image.open(target).convert('RGB')
 		if size:
-			img = img.resize(size, Image.ANTIALIAS).convert('ARGB')
-		img.show()
+			img = img.resize(size, Image.ANTIALIAS).convert('RGBA')
+			print(img.getpixel((0,0)))
 		return ImageTk.PhotoImage(img)
