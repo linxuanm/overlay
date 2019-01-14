@@ -18,7 +18,7 @@ class Alert(TextWindow):
 
 		content: str, the text to be displayed (dynamic).
 		'''
-		super().__init__(content, transparent=True)
+		super().__init__(content, transparent=True, size=(650, 325), alpha = 0.85)
 		self.root.bg = assets.fetch('TextWindow', size=self.size)
 		background = tk.Label(self.root, image=self.root.bg)
 		background.config(bg='systemTransparent')

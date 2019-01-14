@@ -5,6 +5,7 @@ __all__ = [
 ]
 
 import os
+from random import randint
 import tkinter as tk
 from PIL import Image, ImageTk
 
@@ -36,6 +37,5 @@ class Asset:
 
 		img = Image.open(target)
 		if size:
-			img = img.resize(size, Image.ANTIALIAS)
-			print(img.getpixel((0,0)))
+			img = img.resize(size, Image.NEAREST)
 		return ImageTk.PhotoImage(img)
