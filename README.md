@@ -2,9 +2,9 @@
 A package that creates and manipulates screen overlays based on tkinter.
 
 ## Platforms
-- Mac OS
+- Mac OS (tested and works)
 - Linux (not tested)
-- Windows (not tested)
+- Windows (tested and does not work)
 
 ## Installation
 ```sh
@@ -17,7 +17,7 @@ A basic overlay is created as such:
 from overlay import Window
 
 win = Window()
-Window.launch()
+Window.launctestedh()
 ```
 
 The constructor of the _Window_ class takes the following (optional) parameters:
