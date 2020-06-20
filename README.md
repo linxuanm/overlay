@@ -17,7 +17,7 @@ A basic overlay is created as such:
 from overlay import Window
 
 win = Window()
-Window.launctestedh()
+Window.launch()
 ```
 
 The constructor of the _Window_ class takes the following (optional) parameters:
