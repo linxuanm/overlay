@@ -13,12 +13,12 @@ assets = Asset('futuristic')
 
 class Alert(TextWindow):
 
-	def __init__(self, content: str):
+	def __init__(self, text: str):
 		'''Creates a window displaying some text.
 
-		content: str, the text to be displayed (dynamic).
+		text: str, the text to be displayed (dynamic).
 		'''
-		super().__init__(content, transparent=True, size=(650, 325), alpha = 0.85)
+		super().__init__(text, transparent=True, size=(650, 325), alpha = 0.85, resizable=1)
 		self.root.bg = assets.fetch('TextWindow', size=self.size)
 		background = tk.Label(self.root, image=self.root.bg)
 		background.config(bg='systemTransparent')

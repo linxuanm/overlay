@@ -27,6 +27,7 @@ class Window:
 		transparent: bool, whether to set the overlay background transparent.
 		alpha: float [0, 1], the alpha (transparency) of the overlay.
 		draggable: bool, whether the window can be dragged.
+		resizable: bool, whether the window can be resized with <MouseWheel>.
 		'''
 		self._root = tk.Toplevel();
 
@@ -51,6 +52,9 @@ class Window:
 		self._root.bind('<ButtonRelease-1>', self._drag_stop)
 		self._root.bind('<B1-Motion>', self._move)
 		self._drag_stop(None)
+
+		'''Make the window resizable.'''
+		self.resizable = kwargs.get('resizable', False)
 
 		'''Make the overlay float on top of everything.'''
 		self._root.wm_attributes('-topmost', True)
@@ -148,7 +152,7 @@ class Window:
 
 	@transparent.setter
 	def transparent(self, newTransparent):
-		bg = 'systemTransparent' if newTransparent else 'systemWindowBody'
+		bg = 'systemTransparent' if newTransparent else 'white'
 		self._root.config(bg=bg)
 
 	@property
@@ -158,6 +162,18 @@ class Window:
 	@alpha.setter
 	def alpha(self, newAlpha):
 		self._root.wm_attributes('-alpha', newAlpha)
+
+	@property
+	def resizable(self):
+		return self._resizable
+
+	@resizable.setter
+	def resizable(self, newResize):
+		self._resizable = newResize
+		if self._resizable:
+			self._root.bind('<MouseWheel>', lambda event: print(event))
+		else:
+			self._root.unbind('<MouseWheel>')
 
 	@staticmethod
 	def after(milliseconds, func, *args):
