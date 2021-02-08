@@ -1,4 +1,4 @@
-# Overlay
+# overlay
 A package that creates and manipulates screen overlays based on tkinter.
 
 ## Platforms
