@@ -60,7 +60,7 @@ class Window:
 		self._root.wm_attributes('-topmost', True)
 
 		'''Remove the overlay's shadow.'''
-		self._root.wm_attributes('-transparent', True)
+		self._root.wm_attributes('-transparent', "white")
 
 		'''Add self to overlay collections.'''
 		overlays.append(self)
